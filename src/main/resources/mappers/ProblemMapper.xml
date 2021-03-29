@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.mnnu.dao.ProblemMapper">
+    <select id="selectByProblemIds" parameterType="java.util.List" resultType="com.example.mnnu.pojo.Problem">
+        select problem_text
+        from problem
+        <where>
+            <if test="problemIdList.size() > 0">
+                problem_id in
+                <foreach collection="problemIdList" item="item" index="index" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+</mapper>

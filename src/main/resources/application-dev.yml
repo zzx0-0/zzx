@@ -1,0 +1,4 @@
+Path:
+  up: D:\study\mnnu
+  down: D:\
+CMD: cmd /c mysqldump -h

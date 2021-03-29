@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Excel导入</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+<div class="layui-card layadmin-header">
+    <div class="layui-breadcrumb" lay-filter="breadcrumb">
+        <a lay-href="">主页</a>
+        <a><cite>组件</cite></a>
+        <a><cite>上传组件</cite></a>
+        <a><cite>功能演示二</cite></a>
+    </div>
+</div>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">下载模板Excel</div>
+                <div class="layui-card-body">
+                    <div class="layui-upload">
+                        <form action="/2/file/download">
+                            <button type="submit" class="layui-btn layui-btn-normal" id="download">下载文件</button>
+                        </form>
+                    </div>
+                </div>
+
+                <br/><br/><br/>
+
+                <div class="layui-card-header">请按照excel文件要求格式填充信息再提交</div>
+                <div class="layui-card-body">
+                    <div class="layui-upload">
+                        <button type="button" class="layui-btn layui-btn-normal" id="test-upload-change">选择文件</button>
+                        <button type="button" class="layui-btn" id="test-upload-change-action">开始上传</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '/layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'upload'], function(){
+        var $ = layui.jquery
+            ,admin = layui.admin
+            ,upload = layui.upload;
+
+        upload.render({
+            elem: '#test-upload-change'
+            ,url: '/2/file/upload'
+            ,auto: false
+            ,accept: 'file' //普通文件
+            //,multiple: true
+            ,bindAction: '#test-upload-change-action'
+            ,done: function(res){
+                console.log(res);
+                layer.alert(res.msg);
+            }
+        });
+
+    });
+</script>
+</body>
+</html>

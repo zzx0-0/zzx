@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.mnnu.dao.ScoreMapper">
+    <select id="getMax" resultType="com.example.mnnu.pojo.Score">
+        SELECT
+            `score`.`user_id`,
+            `score`.`exam_id`,
+            `score`.`score`
+        FROM
+            `score`,
+            ( SELECT `score`.`exam_id`, MAX( `score`.`score` ) AS `max_score` FROM `score` GROUP BY `score`.`exam_id` ) AS `fuck`
+        WHERE
+            `score`.`exam_id` = `fuck`.`exam_id`
+            AND `score`.`score` = `fuck`.`max_score`
+    </select>
+</mapper>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>试卷信息</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="/layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+  <div class="layui-fluid">
+    <div class="layui-card">
+      <div class="layui-card-header">试卷信息</div>
+      <div class="layui-card-body" style="padding: 15px;">
+        <form class="layui-form" lay-filter="component-form-exam">
+          <div class="layui-form-item" id="iditem">
+            <label class="layui-form-label">ID</label>
+            <div class="layui-input-block">
+              <input type="text" name="examId" readonly class="layui-input">
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <label class="layui-form-label">考试名称</label>
+            <div class="layui-input-block">
+              <input type="text" name="examName" lay-verify="required" placeholder="请输入考试名称" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">考试密码</label>
+            <div class="layui-input-block">
+              <input type="text" name="examPassword" lay-verify="required" placeholder="请输入考试密码" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <label class="layui-form-label">题目列表</label>
+            <div class="layui-input-block">
+              <input type="text" readonly name="examProblemId" placeholder="自动生成" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">考试分数</label>
+            <div class="layui-input-block">
+              <input type="text" name="examPro" lay-verify="required" value="[[4, 5], [4, 5], [4, 5], [4, 5], [4, 5]]" class="layui-input">
+            </div>
+            <label class="layui-form-label"></label>
+            <div class="layui-input-block">
+              <div class="layui-form-mid layui-word-aux">一个二维数组（正整数）</div>
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">考试时间</label>
+              <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="examBeginTime" id="test-laydate-start" autocomplete="off" placeholder="开始时间">
+              </div>
+              <div class="layui-form-mid">
+                -
+              </div>
+              <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="examEndTime" id="test-laydate-end" autocomplete="off" placeholder="结束时间">
+              </div>
+              <div class="layui-form-mid">
+                时长(h)：
+              </div>
+              <div class="layui-input-inline">
+                 <input type="text" readonly class="layui-input" name="examLength" id="test" placeholder="提交后查看">
+              </div>
+            </div>
+          </div>
+
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+              <textarea readonly id="texta" style="height: 300px" class="layui-textarea"></textarea>
+            </div>
+          </div>
+
+<!--          <div class="layui-form-item">-->
+<!--            <label class="layui-form-label">题目生成</label>-->
+<!--            <div class="layui-input-block">-->
+<!--              <input type="radio" name="type" value="男" title="系统自动生成" checked="">-->
+<!--              <input type="radio" name="type" value="女" title="指定一部分试题">-->
+<!--              <input type="radio" name="type" value="女" title="自己选定">-->
+<!--            </div>-->
+<!--          </div>-->
+
+          <div class="layui-card-header">
+              <div class="layui-input-block">
+                  <div class="layui-footer" style="left: 0;">
+                      <button class="layui-btn" lay-submit="" lay-filter="component-form-demo1" id="sub">立即提交</button>
+                        <!--               <button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+                  </div>
+              </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+    
+  <script src="/layuiadmin/layui/layui.js"></script>
+  <script>
+  layui.config({
+    base: '/layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'form', 'laydate', 'util', 'ex']);
+  </script>
+</body>
+</html>

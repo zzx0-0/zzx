@@ -1,0 +1,4 @@
+Path:
+  up: /mnt/file/mnnu/up
+  down: /mnt/file/mnnu
+CMD: /bin/sh -c mysqldump -h

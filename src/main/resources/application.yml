@@ -1,0 +1,90 @@
+server:
+  port: 8085
+spring:
+  profiles:
+    active: dev
+  application:
+    name: mnnu
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47:3306/mnnu?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: 
+    hikari:
+      minimum-idle: 3  # 最小空闲连接数量
+      idle-timeout: 180000    # 空闲连接存活最大时间，默认600000（10分钟）
+      maximum-pool-size: 10    # 连接池最大连接数，默认是10
+      max-lifetime: 30000   # 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
+      connection-timeout: 30000   # 数据库连接超时时间,默认30秒，即30000
+      connection-test-query: SELECT 1
+  mail:
+    host: smtp.qq.com
+    username: 7@qq.com
+    password: 
+    default-encoding: utf-8
+  redis:
+    host: 47
+    port: 6379
+#  session:
+#    store-type: redis
+#    timeout: 3600
+#    redis:
+#      namespace: login
+  rabbitmq:
+    addresses: 47
+    port: 5672
+    username: 
+    password: 
+    listener:
+      simple:
+        prefetch: 2   # 每个消费者可最大处理的nack消息数量
+  devtools:
+    restart:
+      enabled: true
+  thymeleaf:
+    prefix: classpath:/templates/
+    cache: false
+  freemarker:
+    suffix: .ftl
+    cache: false
+    content-type: text/html
+    request-context-attribute: request
+    settings:
+      number_format: 0.##
+logging:
+  level:                        #  trace < debug < info < warn < error
+    com.example.mnnu: debug
+    org.springframework.cloud.bus: debug
+  pattern:
+    console: "%green(%d{yyyy‐MM‐dd HH:mm:ss}) [%thread] %highlight(%-5level) %yellow(%logger{36}) - %msg%n"
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-not-delete-value: 0
+      logic-delete-value: 1
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mappers/*.xml
+OSS:     #  阿里OSS
+  EndPoint: oss-cn-shenzhen.aliyuncs.com
+  AccessKeyId: LTAI4G3bV6SfRxogujJX2nDA
+  AccessKeySecret:
+  BucketName: 
+BD:      # 百度AI
+  AppId: 22672404
+  ApiKey: 
+  SecretKey: 
+WX:
+  MpAppId: wx92774aa245cd088a
+  MpAppSecret:
+  TemplateId: 
+  OpenAppId:
+  OpenAppSecret:
+  MchId:
+  MchKey:
+  KeyPath:
+ALI:
+  AppId: 2021000119612207
+  PublicKey:
+  PrivateKey:

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>人员信息</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="/layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+<div class="layui-fluid">
+  <div class="layui-card">
+    <div class="layui-card-header">人员信息</div>
+    <div class="layui-card-body" style="padding: 15px;">
+      <form class="layui-form" lay-filter="component-form-user">
+        <div class="layui-form-item" id="iditem">
+          <label class="layui-form-label">ID</label>
+          <div class="layui-input-block">
+            <input type="text" name="userId" readonly class="layui-input">
+          </div>
+        </div>
+
+        <div class="layui-form-item">
+          <label class="layui-form-label">账号</label>
+          <div class="layui-input-block">
+            <input type="text" name="userCode" lay-verify="required|code" placeholder="请输入账号" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">姓名</label>
+          <div class="layui-input-block">
+            <input type="text" name="userName" lay-verify="required|nam" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+
+        <div class="layui-form-item" id="passItem">
+          <label class="layui-form-label">密码</label>
+          <div class="layui-input-inline">
+            <input type="password" name="userPassword" lay-verify="pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
+          </div>
+          <div class="layui-form-mid layui-word-aux">请填写3到12位密码</div>
+        </div>
+
+        <div class="layui-form-item" id="classCodeItem">
+          <label class="layui-form-label">所属班级</label>
+          <div class="layui-input-block">
+            <input type="text" name="userClassCode" placeholder="请输入所属班级代码" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+
+        <div class="layui-form-item">
+          <label class="layui-form-label">性别</label>
+          <div class="layui-input-block">
+            <input type="radio" name="userGender" value="" title="未知" checked>
+            <input type="radio" name="userGender" value="男" title="男">
+            <input type="radio" name="userGender" value="女" title="女">
+          </div>
+        </div>
+
+        <div class="layui-form-item">
+          <label class="layui-form-label">角色</label>
+          <div class="layui-input-block">
+            <select name="userRole" lay-verify="required|number">
+              <option value=""></option>
+              <option value="0">学生</option>
+              <option value="1">教师</option>
+              <option value="2">管理员</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="layui-form-item" id="deleteItem">
+          <div class="layui-input-block">
+            <input type="checkbox" name="userDeleted" lay-skin="switch" lay-text="启用|禁用">
+          </div>
+        </div>
+
+
+        <div class="layui-card-header">
+          <div class="layui-input-block">
+            <div class="layui-footer" style="left: 0;">
+              <button class="layui-btn" lay-submit="" lay-filter="component-form-demo1">立即提交</button>
+              <!--                <button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script src="/layuiadmin/layui/layui.js"></script>
+<script>
+  layui.config({
+    base: '/layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'form', 'laydate', 'userform']);
+
+</script>
+</body>
+</html>
