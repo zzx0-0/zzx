@@ -4,6 +4,7 @@ import com.example.mnnu.config.Constant;
 import com.example.mnnu.controller.MsgController;
 import com.example.mnnu.enums.ResponseEnum;
 import com.example.mnnu.vo.ResponseVO;
+import io.sentry.Sentry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.validation.BindingResult;
@@ -29,6 +30,7 @@ public class ExceptionHandlers {
 //	@ResponseStatus(HttpStatus.FORBIDDEN)
     public ResponseVO handle(RuntimeException e) {
         e.printStackTrace();
+        Sentry.captureException(e);
         return ResponseVO.error(ResponseEnum.ERROR, e.getMessage());
     }
 
@@ -46,7 +48,6 @@ public class ExceptionHandlers {
         return ResponseVO.error(ResponseEnum.PARAM_ERROR, "参数错误");
     }
 
-    //缺失参数错误
     @ExceptionHandler(MissingServletRequestParameterException.class)
     @ResponseBody
     public ResponseVO requestMissingServletRequest(MissingServletRequestParameterException e) {
@@ -71,7 +72,7 @@ public class ExceptionHandlers {
     @ResponseBody
     public ResponseVO RedisConnectionFailureExceptionHandler(Exception e) {
         e.printStackTrace();
-        msgController.getMail(Constant.eMail, "警告", "服务器redis没打开");
+        msgController.getMail(Constant.eMail, "警告", "服务器redis出问题");
         return ResponseVO.error(ResponseEnum.REDIS_ERROR, "Sorry, there is something wrong");
     }
 
@@ -80,6 +81,7 @@ public class ExceptionHandlers {
     @ResponseBody
     public ResponseVO ExceptionHandler(Exception e) {
         e.printStackTrace();
+        Sentry.captureException(e);
         return ResponseVO.error(ResponseEnum.OTHERS_ERROR, e.getMessage());
     }
 

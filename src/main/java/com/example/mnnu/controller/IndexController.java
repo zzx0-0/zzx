@@ -86,8 +86,7 @@ public class IndexController {
         session.setAttribute(Constant.CURRENT_USER_CODE, userResponse.getData().getUserCode());
         session.setAttribute(Constant.CURRENT_USER_ROLE, userResponse.getData().getUserRole());
 
-        log.info("Remember me= {}", userLoginForm.getRemember());
-        if (userLoginForm.getRemember().equals("on")) {
+        if (userLoginForm.getRemember().equals(Constant.BUTTON_ON)) {
             String token = UUID.randomUUID().toString();
             String value = userResponse.getData().getUserCode() + "-" + userResponse.getData().getUserRole();
 
@@ -136,15 +135,18 @@ public class IndexController {
         if (userForm.getUserId() != null) {
             User user = new User();
             BeanUtils.copyProperties(userForm, user);
-            if (userForm.getUserDeleted() != null && userForm.getUserDeleted().equals("on")){
-                if (userForm.getUserRole() == 0)
+            if (userForm.getUserDeleted() != null && userForm.getUserDeleted().equals(Constant.BUTTON_ON)){
+                if (userForm.getUserRole() == 0) {
                     return ResponseVO.error(ResponseEnum.USER_NO_EXIT, "学生不可重新启用");
-                else   user.setUserDeleted(0);   //重新启用
+                } else {
+                    user.setUserDeleted(0);   //重新启用
+                }
             }
             return userService.setInfo(user);
         }
-        if (userForm.getUserPassword().trim().length() < 3)
+        if (userForm.getUserPassword().trim().length() < Constant.MIN_PWD_LENGTH) {
             return ResponseVO.error(ResponseEnum.PARAM_ERROR, "密码太过简单");
+        }
         return userService.register(userForm);
     }
 
@@ -186,4 +188,10 @@ public class IndexController {
         return ResponseVO.success(role);
     }
 
+    @GetMapping("/e")
+    @ResponseBody
+    public ResponseVO errorTest(@RequestParam Integer i) {
+        Integer integer = 1/i;
+        return ResponseVO.success(integer);
+    }
 }

@@ -18,6 +18,9 @@ public interface Constant {
 
     String HELLO_WORLD = "19260817";
 
+    Integer MIN_PWD_LENGTH = 8;
+    String BUTTON_ON = "on";
+
     String TOKEN = "token";
     String TOKEN_PREFIX = "token_%s";
 

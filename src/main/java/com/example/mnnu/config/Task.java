@@ -1,9 +1,9 @@
 package com.example.mnnu.config;
 
-import com.example.mnnu.utils.SQLUtil;
 import com.example.mnnu.utils.TimeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +11,7 @@ import java.io.File;
 
 @Slf4j
 @Component
+@EnableScheduling
 public class Task {
 
 //    @Scheduled(fixedRate = 3000)     //每3秒执行一次

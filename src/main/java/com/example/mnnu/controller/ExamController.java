@@ -22,7 +22,7 @@ public class ExamController {
     private IExamService examService;
 
     @PostMapping("/1/exam")
-    @ApiOperation(value = "添加/更新 试卷， 支持自动生成试卷题目列表")
+    @ApiOperation(value = "添加/更新 试卷，自动生成试卷题目列表")
     public ResponseVO save(@Valid @RequestBody ExamSaveForm examSaveForm) {
         Exam exam = examService.changeToExam(examSaveForm);
         if (exam.getExamId() == null)

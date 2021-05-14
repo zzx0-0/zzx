@@ -133,12 +133,10 @@ public class UserServiceImpl implements IUserService {
     public ResponseVO<User> login(String userCode, String userPassword) {
         User user = userMapper.findByUserCode(userCode);
         if (user == null) {
-            log.info("查无此人");
             return ResponseVO.ff(ResponseEnum.USERNAME_OR_PASSWORD_ERROR);
         }
         if (!user.getUserPassword().equalsIgnoreCase(
                 DigestUtils.md5DigestAsHex(userPassword.getBytes(StandardCharsets.UTF_8)))) {
-            log.info("密码错误");
             return ResponseVO.ff(ResponseEnum.USERNAME_OR_PASSWORD_ERROR);
         }
         return ResponseVO.success(user);

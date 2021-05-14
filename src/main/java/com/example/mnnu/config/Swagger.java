@@ -14,11 +14,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class Swagger {
 
-/*
-
-     http://www.zhengzhixian.xyz/swagger-ui.html
-
-*/
+    /**
+     * http://www.zhengzhixian.xyz/swagger-ui.html
+     */
 
     @Bean
     public Docket docket() {

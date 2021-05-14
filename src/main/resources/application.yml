@@ -9,7 +9,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://47:3306/mnnu?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
-    password: 
+    password:
     hikari:
       minimum-idle: 3  # 最小空闲连接数量
       idle-timeout: 180000    # 空闲连接存活最大时间，默认600000（10分钟）
@@ -20,7 +20,7 @@ spring:
   mail:
     host: smtp.qq.com
     username: 7@qq.com
-    password: 
+    password:
     default-encoding: utf-8
   redis:
     host: 47
@@ -33,8 +33,8 @@ spring:
   rabbitmq:
     addresses: 47
     port: 5672
-    username: 
-    password: 
+    username:
+    password:
     listener:
       simple:
         prefetch: 2   # 每个消费者可最大处理的nack消息数量
@@ -66,19 +66,21 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:mappers/*.xml
+sentry:
+  dsn: https://53f62c7147e845f083dd41cf48ece516@o628745.ingest.sentry.io/5754883
 OSS:     #  阿里OSS
   EndPoint: oss-cn-shenzhen.aliyuncs.com
   AccessKeyId: LTAI4G3bV6SfRxogujJX2nDA
   AccessKeySecret:
-  BucketName: 
+  BucketName:
 BD:      # 百度AI
   AppId: 22672404
-  ApiKey: 
-  SecretKey: 
+  ApiKey:
+  SecretKey:
 WX:
   MpAppId: wx92774aa245cd088a
   MpAppSecret:
-  TemplateId: 
+  TemplateId:
   OpenAppId:
   OpenAppSecret:
   MchId:
