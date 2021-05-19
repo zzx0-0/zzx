@@ -10,6 +10,7 @@ import com.example.mnnu.enums.ResponseEnum;
 import com.example.mnnu.pojo.*;
 import com.example.mnnu.service.IScoreService;
 import com.example.mnnu.service.IUserService;
+import com.example.mnnu.service.MQService;
 import com.example.mnnu.service.WebSocket;
 import com.example.mnnu.utils.MathUtil;
 import com.example.mnnu.utils.Util;
@@ -35,9 +36,6 @@ import java.util.List;
 public class ScoreServiceImpl implements IScoreService {
 
     @Autowired
-    private AmqpTemplate amqpTemplate;
-
-    @Autowired
     private ExamMapper examMapper;
 
     @Autowired
@@ -55,11 +53,15 @@ public class ScoreServiceImpl implements IScoreService {
     @Autowired
     private WebSocket webSocket;
 
+    @Autowired
+    private MQService mqService;
+
     @Override
     public ResponseVO sub(Judge judge) {
         Exam exam = examMapper.selectById(judge.getExamId());
-        if (exam == null)
+        if (exam == null) {
             return ResponseVO.error(ResponseEnum.OTHERS_ERROR, "不存在该考试");
+        }
         Score score = scoreMapper.getScore(judge.getUserCode(), judge.getExamId());
         if (score != null) {
             ExamVO examVO = new ExamVO();
@@ -74,7 +76,7 @@ public class ScoreServiceImpl implements IScoreService {
             return ResponseVO.error(ResponseEnum.PARAM_ERROR, "该次考试共有"+ count +"题，请检查后提交。");
         }
 
-        amqpTemplate.convertAndSend(Constant.EXAM_JUDGE, JSON.toJSONString(judge));
+        mqService.send(Constant.EXAM_JUDGE, judge);
         log.info("【发送MQ消息】=> {}", JSON.toJSONString(judge));
         return ResponseVO.ff(ResponseEnum.SUBMIT_SUCCESS);
     }
@@ -153,8 +155,9 @@ public class ScoreServiceImpl implements IScoreService {
         }
 
         Problem pro = problemMapper.selectById(judgeOne.getProblemId());
-        if (pro.getProblemType().equals(ProblemTypeEnum.WRITE.getCode()))
+        if (pro.getProblemType().equals(ProblemTypeEnum.WRITE.getCode())) {
             return needJudgeByTeacher(judgeOne, judgeOne.getScore());
+        }
 
         if (pro.getProblemAnswer().equals(judgeOne.getSub().trim())) {
             return judgeOne.getScore();

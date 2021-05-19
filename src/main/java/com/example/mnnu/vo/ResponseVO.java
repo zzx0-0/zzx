@@ -19,7 +19,9 @@ public class ResponseVO<T> implements Serializable {
 
     private T data;
 
-    private ResponseVO(Integer code, String msg) {
+    public ResponseVO() { }
+
+    public ResponseVO(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }
@@ -45,7 +47,6 @@ public class ResponseVO<T> implements Serializable {
     public static <T> ResponseVO<T> ff(ResponseEnum responseEnum, String msg) {
         return new ResponseVO<>(responseEnum.getCode(), msg);
     }
-
 
     public static <T> ResponseVO<T> ff(ResponseEnum responseEnum) {
         return new ResponseVO<>(responseEnum.getCode(), responseEnum.getDesc());

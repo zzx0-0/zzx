@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -235,11 +236,17 @@ public class UserServiceImpl implements IUserService {
             return ResponseVO.success(user);
         }
         user = userMapper.findByUserCode(uerCode);
-        if (user == null)
+        if (user == null) {
             throw new RuntimeException("您要绑定的账号有误");
+        }
         user.setUserOpenid(openid);
         Util.ff(userMapper.updateById(user));
-        pushMsgService.pushMsg(openid, user.getUserName());
+        try {
+            pushMsgService.pushMsg(openid, user.getUserName());
+        } catch (UnsupportedEncodingException ignored) {
+
+        }
+
         return ResponseVO.success(user);
     }
 

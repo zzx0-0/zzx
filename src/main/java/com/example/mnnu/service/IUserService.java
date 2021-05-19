@@ -5,6 +5,7 @@ import com.example.mnnu.pojo.User;
 import com.example.mnnu.vo.ResponseVO;
 import io.swagger.models.auth.In;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface IUserService {
@@ -25,7 +26,7 @@ public interface IUserService {
 
     User findByOpenid(String openid);
 
-    ResponseVO<User> bang(String openid, String uerCode);
+    ResponseVO<User> bang(String openid, String uerCode) throws UnsupportedEncodingException;
 
     ResponseVO password(String uerCode, String oldPsw, String newPsw);
 

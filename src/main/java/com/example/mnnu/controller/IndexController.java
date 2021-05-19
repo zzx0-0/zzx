@@ -6,6 +6,7 @@ import com.example.mnnu.form.UserLoginForm;
 import com.example.mnnu.form.UserForm;
 import com.example.mnnu.pojo.User;
 import com.example.mnnu.service.IUserService;
+import com.example.mnnu.service.PushMsgService;
 import com.example.mnnu.utils.AgentUserKit;
 import com.example.mnnu.utils.CookieUtil;
 import com.example.mnnu.vo.ResponseVO;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.UUID;
@@ -188,10 +190,13 @@ public class IndexController {
         return ResponseVO.success(role);
     }
 
+
+
     @GetMapping("/e")
     @ResponseBody
     public ResponseVO errorTest(@RequestParam Integer i) {
         Integer integer = 1/i;
         return ResponseVO.success(integer);
     }
+
 }

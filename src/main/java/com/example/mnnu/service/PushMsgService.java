@@ -1,63 +1,35 @@
 package com.example.mnnu.service;
 
-import com.example.mnnu.config.YmlConfig;
+import com.alibaba.fastjson.JSON;
+import com.example.mnnu.vo.ResponseVO;
 import lombok.extern.slf4j.Slf4j;
-import me.chanjar.weixin.common.exception.WxErrorException;
-import me.chanjar.weixin.mp.api.WxMpService;
-import me.chanjar.weixin.mp.bean.template.WxMpTemplateData;
-import me.chanjar.weixin.mp.bean.template.WxMpTemplateMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 @Slf4j
 @Service
 public class PushMsgService {
 
     @Autowired
-    private WxMpService wxMpService;
+    private RestTemplate restTemplate;
 
-    @Autowired
-    private YmlConfig ymlConfig;
+    public void pushMsg(String openid, String name) throws UnsupportedEncodingException {
+        String head = "绑定成功通知";
+        String body = "您已成功绑定用户：" + name;
 
-    private WxMpTemplateMessage getTemplateMessage(){
-        WxMpTemplateMessage templateMessage = new WxMpTemplateMessage();
-        templateMessage.setTemplateId(ymlConfig.getWX_TemplateId());
-        return templateMessage;
+        String url = "http://47.107.92.114:8080/send?openid=" + URLEncoder.encode(openid,"UTF-8") +
+                "&head=" + URLEncoder.encode(head,"UTF-8") +
+                "&body=" + URLEncoder.encode(body,"UTF-8");
+        String response = restTemplate.getForObject(url, String.class);
+        log.info("发送微信消息返回={}",response);
+        ResponseVO vO = JSON.parseObject(response,ResponseVO.class);
+
+
     }
 
-    public void pushMsg(String openid, String name) {
-        WxMpTemplateMessage templateMessage = getTemplateMessage();
-        templateMessage.setToUser(openid);
-
-        List<WxMpTemplateData> data = Arrays.asList(
-                new WxMpTemplateData("head", "绑定成功通知", "red"),
-                new WxMpTemplateData("body", "您已成功绑定用户： " + name )
-        );
-        templateMessage.setData(data);
-        try {
-            wxMpService.getTemplateMsgService().sendTemplateMsg(templateMessage);
-        } catch (WxErrorException e) {
-            log.error("【微信模版消息】发送失败", e);
-        }
-    }
-
-    public void pushMsg(String openid, String head, String body) {
-        WxMpTemplateMessage templateMessage = getTemplateMessage();
-        templateMessage.setToUser(openid);
-
-        List<WxMpTemplateData> data = Arrays.asList(
-                new WxMpTemplateData("head", head, "red"),
-                new WxMpTemplateData("body", body)
-        );
-        templateMessage.setData(data);
-        try {
-            wxMpService.getTemplateMsgService().sendTemplateMsg(templateMessage);
-        } catch (WxErrorException e) {
-            log.error("【微信模版消息】发送失败", e);
-        }
-    }
 
 }

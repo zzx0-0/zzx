@@ -18,6 +18,9 @@ public class AgentUserKit {
 
     public static String getDeviceInfo(HttpServletRequest request) {
         String userAgent = request.getHeader("User-Agent");
+        if (userAgent == null) {
+            throw new RuntimeException("http头部[User-Agent]怎么会空呢");
+        }
         return getDeviceInfo(userAgent);
     }
 

@@ -30,33 +30,4 @@ public class YmlConfig {
     @Value("${BD.SecretKey}")  private String BD_SecretKey;
 
 
-
-    @Value("${WX.MpAppId}")  private String WX_MpAppId;
-
-    @Value("${WX.MpAppSecret}")  private String WX_MpAppSecret;
-
-    @Value("${WX.TemplateId}") private String WX_TemplateId;
-
-
-
-
-    @Value("${WX.OpenAppId}")  private String WX_OpenAppId;
-
-    @Value("${WX.OpenAppSecret}")  private String WX_OpenAppSecret;
-
-    @Value("${WX.MchId}")  private String WX_MchId;
-
-    @Value("${WX.MchKey}")  private String WX_MchKey;
-
-    @Value("${WX.KeyPath}")  private String WX_KeyPath;
-
-
-    @Value("${ALI.AppId}")  private String ALI_AppId;
-
-    @Value("${ALI.PublicKey}")  private String ALI_PublicKey;
-
-    @Value("${ALI.PrivateKey}")  private String ALI_PrivateKey;
-
-
-
 }
