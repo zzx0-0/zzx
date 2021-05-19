@@ -77,16 +77,3 @@ BD:      # 百度AI
   AppId: 22672404
   ApiKey:
   SecretKey:
-WX:
-  MpAppId: wx92774aa245cd088a
-  MpAppSecret:
-  TemplateId:
-  OpenAppId:
-  OpenAppSecret:
-  MchId:
-  MchKey:
-  KeyPath:
-ALI:
-  AppId: 2021000119612207
-  PublicKey:
-  PrivateKey:
