@@ -2,6 +2,7 @@ package com.example.mnnu.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.mnnu.config.Constant;
 import com.example.mnnu.dao.*;
 import com.example.mnnu.dto.Judge;
@@ -18,11 +19,8 @@ import com.example.mnnu.vo.ProblemVO;
 import com.example.mnnu.vo.ResponseVO;
 import com.example.mnnu.vo.ExamVO;
 import com.example.mnnu.vo.ScoreVO;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -242,12 +240,13 @@ public class ScoreServiceImpl implements IScoreService {
     }
 
     @Override
-    public ResponseVO<PageInfo> getJudgeOnes(String problemId, Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public ResponseVO<IPage> getJudgeOnes(String problemId, Integer pageNum, Integer pageSize) {
+     //   PageHelper.startPage(pageNum, pageSize);
         QueryWrapper<JudgeOne> queryWrapper = new QueryWrapper<>();
     //    queryWrapper.in("judged", status);
-        if (StringUtils.isNotEmpty(problemId))
+        if (StringUtils.isNotEmpty(problemId)) {
             queryWrapper.in("problem_id",problemId);
+        }
         queryWrapper.orderByAsc("judged");
         List<JudgeOne> allJudgeOne = judgeOneMapper.selectList(queryWrapper);
         return ResponseVO.success(Util.pageInfo(allJudgeOne));

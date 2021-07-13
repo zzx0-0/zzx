@@ -1,13 +1,11 @@
 package com.example.mnnu.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.mnnu.dto.Judge;
 import com.example.mnnu.pojo.Exam;
 import com.example.mnnu.pojo.JudgeOne;
 import com.example.mnnu.vo.ProblemVO;
 import com.example.mnnu.vo.ResponseVO;
-import com.github.pagehelper.PageInfo;
-import io.swagger.models.auth.In;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -28,7 +26,7 @@ public interface IScoreService {
 
     ResponseVO score(Long examId, String userCode);
 
-    ResponseVO<PageInfo> getJudgeOnes( String problemId, Integer pageNum, Integer pageSize);
+    ResponseVO<IPage> getJudgeOnes(String problemId, Integer pageNum, Integer pageSize);
 
     ResponseVO getJO(Integer judgeId);
 

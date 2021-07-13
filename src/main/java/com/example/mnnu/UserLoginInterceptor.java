@@ -16,6 +16,7 @@ import java.io.IOException;
  * Interceptor 基于URL
  * IoC  控制反转
  *
+ * 拦截器  AOP思想
  */
 
 @Slf4j
@@ -54,5 +55,15 @@ public class UserLoginInterceptor implements HandlerInterceptor {
         log.info("userCode={}, uri='{}', method={}. pass={}", userCode, uri, request.getMethod(), f);
         return f;
     }
+
+
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e) throws Exception {
+         log.info("postHandle");
+    }
+   
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e) throws Exception {
+         log.info("清理");
+    }
+    
 
 }

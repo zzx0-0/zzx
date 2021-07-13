@@ -1,9 +1,9 @@
 package com.example.mnnu.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.mnnu.form.ExamSaveForm;
 import com.example.mnnu.pojo.Exam;
 import com.example.mnnu.vo.ResponseVO;
-import com.github.pagehelper.PageInfo;
 
 public interface IExamService {
 
@@ -19,6 +19,6 @@ public interface IExamService {
 
     ResponseVO detail(Long examId);
 
-    ResponseVO<PageInfo> enter(Long examId, String examPassword, Integer pageNum, Integer pageSize);
+    ResponseVO<IPage> enter(Long examId, String examPassword, Integer pageNum, Integer pageSize);
 
 }

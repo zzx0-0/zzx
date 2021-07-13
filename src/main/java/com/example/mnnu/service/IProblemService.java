@@ -1,8 +1,8 @@
 package com.example.mnnu.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.mnnu.pojo.Problem;
 import com.example.mnnu.vo.ResponseVO;
-import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public interface IProblemService {
 
     ResponseVO delete(Long problemId);
 
-    ResponseVO<PageInfo> showPro(Integer problemType, Integer pageNum, Integer pageSize);
+    ResponseVO<IPage> showPro(Integer problemType, Integer pageNum, Integer pageSize);
 
     ResponseVO showOne(Long problemId);
 

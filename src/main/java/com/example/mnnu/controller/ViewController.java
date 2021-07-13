@@ -1,7 +1,10 @@
 package com.example.mnnu.controller;
 
+import com.example.mnnu.service.ITestService;
+import com.example.mnnu.service.impl.TestService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 

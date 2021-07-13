@@ -44,7 +44,7 @@ layui.define(["jquery", "layer", "form"], function (exports) {
         MOD_BTN_SUCCESS = "slider-btn-success",
         MOD_DEFAULT_BG = "layui-bg-green",
         MOD_ERROR_BORDER = "slider-error",
-        MOD_CONFIG_TEXT = "请拖动滑块验证",
+        MOD_CONFIG_TEXT = "请按住滑块，拖动到最右边",
         MOD_CONFIG_SUCCESS = "验证通过",
         Class = function (option) {
             var that = this;

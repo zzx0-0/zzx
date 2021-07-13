@@ -141,7 +141,7 @@ public class IndexController {
                 if (userForm.getUserRole() == 0) {
                     return ResponseVO.error(ResponseEnum.USER_NO_EXIT, "学生不可重新启用");
                 } else {
-                    user.setUserDeleted(0);   //重新启用
+                    user.setUserDeleted(false);   //重新启用
                 }
             }
             return userService.setInfo(user);

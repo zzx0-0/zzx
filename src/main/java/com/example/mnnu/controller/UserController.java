@@ -1,6 +1,8 @@
 package com.example.mnnu.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.mnnu.enums.ResponseEnum;
+import com.example.mnnu.enums.RoleEnum;
 import com.example.mnnu.form.UserUpdateForm;
 import com.example.mnnu.pojo.User;
 import com.example.mnnu.service.IUserService;
@@ -68,10 +70,10 @@ public class UserController {
 
     @GetMapping("/2/users")
     @ApiOperation(value = "获取用户")
-    public ResponseVO getUsers(@RequestParam(required = false) String user,
-                               @RequestParam(defaultValue = "-1") Integer role,
-                               @RequestParam(defaultValue = "1") Integer pageNum,
-                               @RequestParam(defaultValue = "10") Integer pageSize) {
+    public ResponseVO<IPage> getUsers(@RequestParam(required = false) String user,
+                                      @RequestParam(defaultValue = "-1") Integer role,
+                                      @RequestParam(defaultValue = "1") Integer pageNum,
+                                      @RequestParam(defaultValue = "10") Integer pageSize) {
         return userService.getUsers(user, role, pageNum, pageSize);
     }
 
@@ -79,10 +81,11 @@ public class UserController {
     @ApiOperation(value = "获取某个用户信息")
     public ResponseVO getUser(@PathVariable String userCode, HttpSession session) {
         User user;
-        if (Util.getCurrentUserRole(session) == 2)
+        if (Util.getCurrentUserRole(session).equals(RoleEnum.ADMIN.getCode())) {
             user = userService.findByUserCodeAll(userCode);
-        else
+        } else {
             user = userService.findByUserCode(userCode);
+        }
         return ResponseVO.success(user);
     }
 

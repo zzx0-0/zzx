@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public interface ScoreMapper extends BaseMapper<Score> {
 
@@ -34,5 +36,6 @@ public interface ScoreMapper extends BaseMapper<Score> {
 //            "\t`score`.`exam_id` = `fuck`.`exam_id`\n" +
 //            "\tAND `score`.`score` = `fuck`.`max_score`")
     List<Score> getMax();
+
 
 }

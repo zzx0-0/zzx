@@ -1,12 +1,11 @@
 package com.example.mnnu.exception;
 
 import com.example.mnnu.config.Constant;
-import com.example.mnnu.controller.MsgController;
 import com.example.mnnu.enums.ResponseEnum;
 import com.example.mnnu.vo.ResponseVO;
 import io.sentry.Sentry;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.RedisConnectionFailureException;
+import org.springframework.messaging.MessagingException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -14,16 +13,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.mail.MessagingException;
 import java.net.BindException;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 @ControllerAdvice
 public class ExceptionHandlers {
-
-    @Autowired
-    private MsgController msgController;
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseBody
@@ -72,7 +67,6 @@ public class ExceptionHandlers {
     @ResponseBody
     public ResponseVO RedisConnectionFailureExceptionHandler(Exception e) {
         e.printStackTrace();
-        msgController.getMail(Constant.eMail, "警告", "服务器redis出问题");
         return ResponseVO.error(ResponseEnum.REDIS_ERROR, "Sorry, there is something wrong");
     }
 

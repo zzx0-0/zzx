@@ -4,7 +4,6 @@ import com.example.mnnu.form.ExamSaveForm;
 import com.example.mnnu.pojo.Exam;
 import com.example.mnnu.service.IExamService;
 import com.example.mnnu.vo.ResponseVO;
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +24,9 @@ public class ExamController {
     @ApiOperation(value = "添加/更新 试卷，自动生成试卷题目列表")
     public ResponseVO save(@Valid @RequestBody ExamSaveForm examSaveForm) {
         Exam exam = examService.changeToExam(examSaveForm);
-        if (exam.getExamId() == null)
-           return examService.add(exam);
+        if (exam.getExamId() == null) {
+            return examService.add(exam);
+        }
         return examService.upd(exam);
     }
 

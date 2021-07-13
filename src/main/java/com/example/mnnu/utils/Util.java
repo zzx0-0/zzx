@@ -1,9 +1,9 @@
 package com.example.mnnu.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.mnnu.config.Constant;
 import com.example.mnnu.vo.ResponseVO;
-import com.github.pagehelper.PageInfo;
 import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
@@ -20,15 +20,16 @@ import java.util.*;
 public class Util {
 
     public static ResponseVO ff(int row) {
-        if (row == 0)
+        if (row == 0) {
             throw new RuntimeException("数据库操作不成功");
+        }
         return ResponseVO.success();
     }
 
-    public static PageInfo pageInfo(List list) {
-        PageInfo pageInfo = new PageInfo(list);
-        pageInfo.setList(list);
-        return pageInfo;
+    public static IPage pageInfo(List list) {
+     //   PageInfo pageInfo = new PageInfo(list);
+    //    pageInfo.setList(list);
+        return null;
     }
 
     // []

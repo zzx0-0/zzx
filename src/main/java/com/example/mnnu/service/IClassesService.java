@@ -1,7 +1,7 @@
 package com.example.mnnu.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.mnnu.vo.ResponseVO;
-import com.github.pagehelper.PageInfo;
 
 public interface IClassesService {
 
@@ -11,7 +11,7 @@ public interface IClassesService {
 
     ResponseVO setClassName(String classCode, String className);
 
-    ResponseVO<PageInfo> showClass(String clas, Integer pageNum, Integer pageSize);
+    ResponseVO<IPage> showClass(String clas, Integer pageNum, Integer pageSize);
 
     ResponseVO getClassPension(String student, String classCode);
 

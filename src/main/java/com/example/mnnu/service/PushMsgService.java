@@ -26,7 +26,7 @@ public class PushMsgService {
                 "&body=" + URLEncoder.encode(body,"UTF-8");
         String response = restTemplate.getForObject(url, String.class);
         log.info("发送微信消息返回={}",response);
-        ResponseVO vO = JSON.parseObject(response,ResponseVO.class);
+        ResponseVO VO = JSON.parseObject(response,ResponseVO.class);
 
 
     }

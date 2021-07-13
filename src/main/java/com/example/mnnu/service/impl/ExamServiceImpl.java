@@ -1,6 +1,7 @@
 package com.example.mnnu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.mnnu.dao.ExamMapper;
 import com.example.mnnu.dao.ProblemMapper;
 import com.example.mnnu.dto.ProblemText;
@@ -15,10 +16,7 @@ import com.example.mnnu.utils.MathUtil;
 import com.example.mnnu.utils.TimeUtil;
 import com.example.mnnu.utils.Util;
 import com.example.mnnu.vo.ResponseVO;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.EnumUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,13 +39,15 @@ public class ExamServiceImpl implements IExamService {
     @Autowired
     private IProblemService problemService;
 
+    @Override
     public Exam changeToExam(ExamSaveForm examSaveForm) {
         LocalDateTime beginTime = TimeUtil.changeTimePattern(examSaveForm.getExamBeginTime());
         LocalDateTime endTime = TimeUtil.changeTimePattern(examSaveForm.getExamEndTime());
 
         Duration duration = Duration.between(beginTime, endTime);
-        if (duration.toMinutes() <= 0)
+        if (duration.toMinutes() <= 0) {
             throw new RuntimeException("时间先后有问题");
+        }
         long hours = duration.toHours();
         long minutes = duration.toMinutes() - hours * 60;
         BigDecimal length = new BigDecimal(minutes).divide(new BigDecimal("60"), 2, BigDecimal.ROUND_HALF_UP).add(new BigDecimal(hours));
@@ -57,8 +57,9 @@ public class ExamServiceImpl implements IExamService {
         exam.setExamBeginTime(beginTime);
         exam.setExamEndTime(endTime);
         exam.setExamLength(length);
-        if (examSaveForm.getExamId() != null)
+        if (examSaveForm.getExamId() != null) {
             exam.setExamId(examSaveForm.getExamId());
+        }
         return exam;
     }
 
@@ -68,8 +69,9 @@ public class ExamServiceImpl implements IExamService {
             a = a + integers[0] * integers[1];
             count = count + integers[0];
         }
-        if (a != 100)
+        if (a != 100) {
             throw new RuntimeException("试卷总分不为100");
+        }
         return count;
     }
 
@@ -125,7 +127,7 @@ public class ExamServiceImpl implements IExamService {
     @Override
     public ResponseVO show(Integer pageNum, Integer pageSize) {
     //    return ResponseVO.success(examMapper.selectAll());
-        PageHelper.startPage(pageNum, pageSize);
+      //  PageHelper.startPage(pageNum, pageSize);
         List<Exam> exams = examMapper.selectAll();
         return ResponseVO.success(Util.pageInfo(exams));
 
@@ -145,7 +147,7 @@ public class ExamServiceImpl implements IExamService {
     }
 
     @Override
-    public ResponseVO<PageInfo> enter(Long examId, String examPassword, Integer pageNum, Integer pageSize) {
+    public ResponseVO<IPage> enter(Long examId, String examPassword, Integer pageNum, Integer pageSize) {
         Exam exam = examMapper.selectById(examId);
         if (exam == null)
             return ResponseVO.error(ResponseEnum.OTHERS_ERROR, "不存在该考试");
@@ -162,7 +164,7 @@ public class ExamServiceImpl implements IExamService {
         QueryWrapper<Problem> queryWrapper = new QueryWrapper<>();
         queryWrapper.in("problem_id", problemIdList);
 
-        PageHelper.startPage(pageNum, pageSize);
+      //  PageHelper.startPage(pageNum, pageSize);
         List<ProblemText> problemTextList = problemMapper.selectProblemText(queryWrapper);
         return ResponseVO.success(Util.pageInfo(problemTextList));
     }

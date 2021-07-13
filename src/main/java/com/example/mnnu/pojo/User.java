@@ -1,7 +1,6 @@
 package com.example.mnnu.pojo;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.ToString;
@@ -10,7 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-/*
+/**
     @NotNull：不能为null，但可以为empty(""," ","   ")    //用于 任意类型
     @NotEmpty：不能为null，而且长度必须大于0 (" ","  ")   //@NotEmpty 只能用于对String 、 Collection 或 array 字段的注解， 其他的 就不行
     @NotBlank：只能作用在String上，不能为null，而且调用trim()后，长度必须大于0   即：必须有实际字符
@@ -36,9 +35,8 @@ public class User {
 
     private String userOpenid;
 
-    //@TableLogic
-    //@TableField(select = false)    // 排除删除标识字段.
-    private Integer userDeleted;   // 0-还在； 1-被删了
+    @TableLogic
+    private boolean userDeleted;   // 0-还在； 1-被删了
 
     private String userGender;     //性别
 
@@ -78,6 +76,9 @@ public class User {
 
     private Integer userFeedbackCount;    //反馈次数
 
+    @Version
+    private Integer version;
+
     @JsonIgnore
     private LocalDateTime createTime;
 
@@ -88,7 +89,7 @@ public class User {
     }
 
     public String getUserPetName() {
-        if (userPetName == null || userPetName.equals("")) {
+        if (userPetName == null || "".equals(userPetName)) {
             return userName;
         }
         return userPetName;

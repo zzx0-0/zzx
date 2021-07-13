@@ -1,11 +1,10 @@
 package com.example.mnnu.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.mnnu.dto.Judge;
 import com.example.mnnu.service.IScoreService;
 import com.example.mnnu.utils.Util;
 import com.example.mnnu.vo.ResponseVO;
-import com.example.mnnu.vo.ScoreVO;
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.math.BigDecimal;
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -50,8 +48,9 @@ public class ScoreController {
     public ResponseVO score(@RequestParam Long examId,
                             @RequestParam(required = false) String userCode,
                             HttpSession session) {
-        if (Util.getCurrentUserRole(session) == 0)
+        if (Util.getCurrentUserRole(session) == 0) {
             userCode = Util.getCurrentUserCode(session);
+        }
         return scoreService.score(examId, userCode);
     }
 
@@ -65,10 +64,10 @@ public class ScoreController {
 
     @GetMapping("/1/judgeO")
     @ApiOperation(value = "显示所有需要教师批改的")
-    public ResponseVO<PageInfo> judgeO(@RequestParam(defaultValue = "[0, 1]") String judgeStatus,
-                                        @RequestParam(required = false) String problemId,
-                                        @RequestParam(defaultValue = "1") Integer pageNum,
-                                        @RequestParam(defaultValue = "10") Integer pageSize) {
+    public ResponseVO<IPage> judgeO(@RequestParam(defaultValue = "[0, 1]") String judgeStatus,
+                                    @RequestParam(required = false) String problemId,
+                                    @RequestParam(defaultValue = "1") Integer pageNum,
+                                    @RequestParam(defaultValue = "10") Integer pageSize) {
        // List status = Util.StringChangeToList(judgeStatus, Integer.class);
         return scoreService.getJudgeOnes( problemId, pageNum, pageSize);
     }

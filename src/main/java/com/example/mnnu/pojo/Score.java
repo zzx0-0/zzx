@@ -41,10 +41,23 @@ public class Score {
     public Score() {
     }
 
+    public Score(String userCode, Long examId, BigDecimal sc) {
+        this.userCode = userCode;
+        this.examId = examId;
+        this.score = sc;
+    }
+
     public Score(String userCode, Long examId, String submitAnswer) {
         this.userCode = userCode;
         this.examId = examId;
         this.submitAnswer = submitAnswer;
+    }
+
+    public Score(String userCode, Long examId, String submitAnswer, BigDecimal sc) {
+        this.userCode = userCode;
+        this.examId = examId;
+        this.submitAnswer = submitAnswer;
+        this.score = sc;
     }
 
 }

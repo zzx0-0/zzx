@@ -1,19 +1,14 @@
 package com.example.mnnu.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.mnnu.service.IClassesService;
 import com.example.mnnu.utils.Util;
 import com.example.mnnu.vo.ResponseVO;
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Map;
 
 @Slf4j
 @RestController
@@ -25,9 +20,9 @@ public class ClassesController {
 
     @GetMapping("/1/classes")
     @ApiOperation(value = "显示所有班级")
-    public ResponseVO<PageInfo> showC(@RequestParam(required = false) String clas,
-                                      @RequestParam(defaultValue = "1") Integer pageNum,
-                                      @RequestParam(defaultValue = "10") Integer pageSize) {
+    public ResponseVO<IPage> showC(@RequestParam(required = false) String clas,
+                                   @RequestParam(defaultValue = "1") Integer pageNum,
+                                   @RequestParam(defaultValue = "10") Integer pageSize) {
         return classesService.showClass(clas, pageNum, pageSize);
     }
 

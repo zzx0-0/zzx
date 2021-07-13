@@ -1,5 +1,6 @@
 package com.example.mnnu.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.mnnu.form.UserForm;
 import com.example.mnnu.pojo.User;
 import com.example.mnnu.vo.ResponseVO;
@@ -34,6 +35,6 @@ public interface IUserService {
 
     ResponseVO setAvatar(String userCode, String imgUrl);
 
-    ResponseVO getUsers(String user, Integer role, Integer pageNum, Integer pageSize);
+    ResponseVO<IPage> getUsers(String user, Integer role, Integer pageNum, Integer pageSize);
 
 }

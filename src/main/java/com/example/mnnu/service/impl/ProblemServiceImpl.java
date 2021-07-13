@@ -1,21 +1,19 @@
 package com.example.mnnu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.mnnu.dao.ProblemMapper;
 import com.example.mnnu.enums.ResponseEnum;
 import com.example.mnnu.pojo.Problem;
 import com.example.mnnu.service.IProblemService;
 import com.example.mnnu.utils.Util;
 import com.example.mnnu.vo.ResponseVO;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 
 @Slf4j
@@ -57,8 +55,8 @@ public class ProblemServiceImpl implements IProblemService {
     }
 
     @Override
-    public ResponseVO<PageInfo> showPro(Integer problemType, Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public ResponseVO<IPage> showPro(Integer problemType, Integer pageNum, Integer pageSize) {
+      //  PageHelper.startPage(pageNum, pageSize);
         List<Problem> problemList ;
         if (problemType == -1){
             problemList = problemMapper.selectAll();

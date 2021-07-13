@@ -1,6 +1,8 @@
 package com.example.mnnu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mnnu.config.Constant;
 import com.example.mnnu.dao.UserMapper;
 import com.example.mnnu.form.UserForm;
@@ -10,8 +12,6 @@ import com.example.mnnu.service.IUserService;
 import com.example.mnnu.service.PushMsgService;
 import com.example.mnnu.utils.Util;
 import com.example.mnnu.vo.ResponseVO;
-import com.github.pagehelper.PageHelper;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -46,10 +46,11 @@ public class UserServiceImpl implements IUserService {
     public ResponseVO register(UserForm userRegisterForm) {
         User user = userMapper.findByUserCodeAll(userRegisterForm.getUserCode());
         if (user != null) {
-            if (user.getUserDeleted() == 0)
+            if (!user.isUserDeleted()) {
                 return ResponseVO.error(ResponseEnum.USER_EXIT,userRegisterForm.getUserCode()+" 已存在");
-            else
+            } else {
                 return ResponseVO.error(ResponseEnum.USER_ONCE_EXIT,userRegisterForm.getUserCode()+" 曾被删除过");
+            }
         }
         user = new User();
         BeanUtils.copyProperties(userRegisterForm, user);
@@ -117,9 +118,9 @@ public class UserServiceImpl implements IUserService {
             form.setUserRole(role);
 
             ResponseVO formVO = register(form);
-            if (formVO.getCode() == 0)
+            if (formVO.getCode() == 0) {
                 succ++;
-            else {
+            } else {
                 fail++;
                 errorMsg.add("第" + (i + first_line) + "行 " + formVO.getMsg() + "  ");
             }
@@ -145,7 +146,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public ResponseVO setInfo(User user) throws DateTimeParseException {
+    public ResponseVO setInfo(User user) {
         User u = userMapper.findByUserCodeAll(user.getUserCode());
         if (u == null) {
             return ResponseVO.error(ResponseEnum.USER_NO_EXIT, "查无此人");
@@ -171,8 +172,8 @@ public class UserServiceImpl implements IUserService {
         if (user.getUserRole() == 0) {
             classesService.delStu(user.getUserClassCode(), userCode);
         }
-        user.setUserDeleted(1);   // 逻辑删除
-        return Util.ff(userMapper.updateById(user));
+     //   user.setUserDeleted();   // 逻辑删除
+        return Util.ff(userMapper.deleteById(user.getUserId()));
     }
 
     @Override
@@ -183,23 +184,28 @@ public class UserServiceImpl implements IUserService {
             log.info("旧密码错误");
             return ResponseVO.ff(ResponseEnum.OLD_PASSWORD_ERROR);
         }
-        if (userCode.equals("admin") || userCode.equals("teacher") || userCode.equals("student"))
+        if (userCode.equals("admin") || userCode.equals("teacher") || userCode.equals("student")) {
             return ResponseVO.ff(ResponseEnum.SUCCESS, "逻辑修改密码成功。但这是公用测试号，密码不变");
+        }
         user.setUserPassword(DigestUtils.md5DigestAsHex(newPsw.getBytes(StandardCharsets.UTF_8)));
         return Util.ff(userMapper.updateById(user));
     }
 
     @Override
     public ResponseVO setPsw(String value1, String userCode, String newPsw) {   //管理员权限的
-        if (!value1.equals(Constant.PASS_RESET))
+        if (!value1.equals(Constant.PASS_RESET)) {
             return ResponseVO.error(ResponseEnum.PASSWORD_ERROR,"指令错误");
+        }
         User user = userMapper.findByUserCodeAll(userCode);
-        if (user == null)
+        if (user == null) {
             return ResponseVO.ff(ResponseEnum.USER_NO_EXIT);
-        if (user.getUserDeleted() == 1)
+        }
+        if (user.isUserDeleted()) {
             return ResponseVO.error(ResponseEnum.USER_NO_EXIT, "用户被删了");
-        if (userCode.equals("admin") || userCode.equals("teacher") || userCode.equals("student"))
+        }
+        if (userCode.equals("admin") || userCode.equals("teacher") || userCode.equals("student")) {
             return ResponseVO.error(ResponseEnum.SUCCESS, "逻辑修改密码成功。但这是公用测试号，密码不变");
+        }
         user.setUserPassword(DigestUtils.md5DigestAsHex(newPsw.getBytes(StandardCharsets.UTF_8)));
         return Util.ff(userMapper.updateById(user));
     }
@@ -207,16 +213,18 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User findByUserCode(String userCode) {
         User user = userMapper.findByUserCode(userCode);
-        if (user == null)
+        if (user == null) {
             throw new RuntimeException("账号不存在...");
+        }
         return user;
     }
 
     @Override
     public User findByUserCodeAll(String userCode) {
         User user = userMapper.findByUserCodeAll(userCode);
-        if (user == null)
+        if (user == null) {
             throw new RuntimeException("账号不存在...");
+        }
         return user;
     }
 
@@ -261,14 +269,16 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public ResponseVO getUsers(String user, Integer role, Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public ResponseVO<IPage> getUsers(String user, Integer role, Integer pageNum, Integer pageSize) {
+        Page<User> page = new Page<>(pageNum, pageSize);
+        // TODO 因为用了软删除，查询时自动带上deleted = 0， 所以这里的sql要自己写
+
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         if(role != -1)
             queryWrapper.in("user_role", role);
         if(StringUtils.isNotEmpty(user))
             queryWrapper.and(wrapper-> wrapper.eq("user_code",user).or().like("user_name", user));
-        List<User> users = userMapper.selectList(queryWrapper);
-        return ResponseVO.success(Util.pageInfo(users));
+        Page<User> userPage = userMapper.selectPage(page, queryWrapper);
+        return ResponseVO.success(userPage);
     }
 }

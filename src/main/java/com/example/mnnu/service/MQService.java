@@ -2,7 +2,6 @@ package com.example.mnnu.service;
 
 import com.alibaba.fastjson.JSON;
 import com.example.mnnu.config.Constant;
-import com.example.mnnu.controller.MsgController;
 import com.example.mnnu.dto.Judge;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
@@ -27,13 +26,8 @@ public class MQService {
         amqpTemplate.convertAndSend(queueName, JSON.toJSONString(var));
     }
 
-
-
     @Autowired
     private IScoreService scoreService;
-
-    @Autowired
-    private MsgController msgController;
 
     // @RabbitListener(queues = Constant.EXAM_JUDGE)
     @RabbitHandler
@@ -45,7 +39,7 @@ public class MQService {
             scoreService.judge(judge);
         } catch (Exception e) {
             e.printStackTrace();
-            msgController.getMail(Constant.eMail, "MQ", msg);
+            // 发送消息
         } finally {
             log.info("确认消费MQ消息");
             // 手动签收[参数1:消息投递序号, 参数2:批量签收]
