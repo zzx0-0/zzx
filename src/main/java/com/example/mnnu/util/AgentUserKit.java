@@ -1,4 +1,4 @@
-package com.example.mnnu.utils;
+package com.example.mnnu.util;
 
 import lombok.extern.slf4j.Slf4j;
 

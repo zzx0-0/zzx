@@ -85,8 +85,7 @@ public class User {
     @JsonIgnore
     private LocalDateTime updateTime;
 
-    public User() {
-    }
+    public User() { }
 
     public String getUserPetName() {
         if (userPetName == null || "".equals(userPetName)) {

@@ -9,6 +9,7 @@ import com.example.mnnu.pojo.Score;
 import com.example.mnnu.pojo.User;
 import com.example.mnnu.pojo2.Class2;
 import io.sentry.Sentry;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,13 +37,24 @@ public class MnnuApplicationTests {
 
     @Test
     public void t() {
-        String str1="i";
-        String str2="i";
-        System.out.println(str1 == str2);
+        String str1 = "i";
+        String str2 = "i";
+        System.out.println(str1 == str2);   // true
 
         String s1 = new String("i");
         String s2 = new String("i");
-        System.out.println(s1==s2);
+        System.out.println(s1 == s2);   // false
+
+        Integer a = 3;
+        Integer b = 3;
+        System.out.println(a == b);     // true
+
+        Integer a1 = new Integer(3);
+        Integer b1 = new Integer(3);
+        System.out.println(a1 == b1);    // false
+
+        String s = DateFormatUtils.format(new Date(), "yyyyMMddHHmmss");
+        System.out.println(s);
     }
 
     @Autowired

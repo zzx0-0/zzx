@@ -2,7 +2,6 @@ package com.example.mnnu.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.mnnu.service.IClassesService;
-import com.example.mnnu.utils.Util;
 import com.example.mnnu.vo.ResponseVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

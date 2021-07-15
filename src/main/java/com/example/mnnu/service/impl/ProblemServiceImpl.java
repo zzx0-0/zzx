@@ -6,7 +6,7 @@ import com.example.mnnu.dao.ProblemMapper;
 import com.example.mnnu.enums.ResponseEnum;
 import com.example.mnnu.pojo.Problem;
 import com.example.mnnu.service.IProblemService;
-import com.example.mnnu.utils.Util;
+import com.example.mnnu.util.Util;
 import com.example.mnnu.vo.ResponseVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

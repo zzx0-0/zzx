@@ -8,7 +8,7 @@ import com.example.mnnu.config.YmlConfig;
 import com.example.mnnu.enums.ResponseEnum;
 import com.example.mnnu.service.IFileService;
 import com.example.mnnu.service.IUserService;
-import com.example.mnnu.utils.TimeUtil;
+import com.example.mnnu.util.TimeUtil;
 import com.example.mnnu.vo.ResponseVO;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 

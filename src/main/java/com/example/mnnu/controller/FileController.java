@@ -1,12 +1,11 @@
 package com.example.mnnu.controller;
 
 import com.example.mnnu.service.IFileService;
-import com.example.mnnu.utils.Util;
+import com.example.mnnu.util.Util;
 import com.example.mnnu.vo.ResponseVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.jsqlparser.statement.create.table.Index;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

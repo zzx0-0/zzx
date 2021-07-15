@@ -2,7 +2,6 @@ package com.example.mnnu.controller;
 
 import com.example.mnnu.pojo.Problem;
 import com.example.mnnu.service.IProblemService;
-import com.example.mnnu.utils.Util;
 import com.example.mnnu.vo.ResponseVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Slf4j
 @RestController

@@ -10,7 +10,7 @@ import com.example.mnnu.pojo.User;
 import com.example.mnnu.enums.ResponseEnum;
 import com.example.mnnu.service.IUserService;
 import com.example.mnnu.service.PushMsgService;
-import com.example.mnnu.utils.Util;
+import com.example.mnnu.util.Util;
 import com.example.mnnu.vo.ResponseVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -23,9 +23,6 @@ import org.springframework.util.DigestUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 

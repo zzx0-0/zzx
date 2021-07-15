@@ -1,4 +1,4 @@
-package com.example.mnnu.utils;
+package com.example.mnnu.util;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;

@@ -3,7 +3,7 @@ package com.example.mnnu.test;
 import com.baidu.aip.face.AipFace;
 import com.example.mnnu.config.Account;
 import com.example.mnnu.config.Constant;
-import com.example.mnnu.utils.Util;
+import com.example.mnnu.util.Util;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 

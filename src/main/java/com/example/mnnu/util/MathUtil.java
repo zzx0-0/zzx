@@ -1,9 +1,6 @@
-package com.example.mnnu.utils;
+package com.example.mnnu.util;
 
 import com.example.mnnu.enums.ProblemTypeEnum;
-import com.example.mnnu.pojo.Problem;
-import com.example.mnnu.pojo.Score;
-import com.example.mnnu.vo.ScoreVO;
 import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,6 +1,6 @@
 package com.example.mnnu.config;
 
-import com.example.mnnu.utils.TimeUtil;
+import com.example.mnnu.util.TimeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;

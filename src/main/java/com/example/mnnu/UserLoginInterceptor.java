@@ -1,6 +1,6 @@
 package com.example.mnnu;
 
-import com.example.mnnu.utils.Util;
+import com.example.mnnu.util.Util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -61,6 +61,7 @@ public class UserLoginInterceptor implements HandlerInterceptor {
          log.info("postHandle");
     }
    
+    @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e) throws Exception {
          log.info("清理");
     }

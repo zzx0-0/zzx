@@ -1,4 +1,4 @@
-package com.example.mnnu.utils;
+package com.example.mnnu.util;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;

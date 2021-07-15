@@ -1,10 +1,6 @@
-package com.example.mnnu.utils;
+package com.example.mnnu.util;
 
-import com.example.mnnu.config.YmlConfig;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.io.File;
 
 @Slf4j
 public class SQLUtil {

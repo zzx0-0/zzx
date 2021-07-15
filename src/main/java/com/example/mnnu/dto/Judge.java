@@ -1,10 +1,8 @@
 package com.example.mnnu.dto;
 
-import com.example.mnnu.utils.Util;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 
 @Data
 public class Judge {

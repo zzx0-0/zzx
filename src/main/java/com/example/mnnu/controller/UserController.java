@@ -6,7 +6,7 @@ import com.example.mnnu.enums.RoleEnum;
 import com.example.mnnu.form.UserUpdateForm;
 import com.example.mnnu.pojo.User;
 import com.example.mnnu.service.IUserService;
-import com.example.mnnu.utils.Util;
+import com.example.mnnu.util.Util;
 import com.example.mnnu.vo.ResponseVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,12 +15,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
 
 @Slf4j
 @Api(value = "用户管理类 (要特别注意用户的逻辑删除)")
